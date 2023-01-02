@@ -11,6 +11,12 @@ This script is going to extract:
 * Date when the highlight was made. 
 * Highlight color
 
+### Immediate Improvement To-do's:
+- [ ] Simplify regular Markdown output
+- [ ] Add ability to create "call-out blocks" for Markdown
+  - [ ] Specify different blocks for different situations (highlight vs note)
+  - [ ] Custom call-out blocks (according to CSS?)
+
 
 ### How to use this:
 
