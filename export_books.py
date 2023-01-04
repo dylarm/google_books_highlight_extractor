@@ -20,8 +20,10 @@ def save_md(file: IO, highlights: seq):
     file.write(highlights.map(lambda it: it.as_roam_markdown()).make_string("\n"))
 
 
-def save_emd(file: IO, highlights: seq):
-    file.write(highlights.map(lambda it: it.as_enhanced_markdown()).make_string("\n"))
+def save_emd(file: IO, highlights: seq, custom_css: bool):
+    file.write(
+        highlights.map(lambda it: it.as_enhanced_markdown(custom_css)).make_string("\n")
+    )
 
 
 def save_csv(file, highlights: seq):
@@ -69,12 +71,12 @@ def common_params(func):
     is_flag=True,
     show_default=True,
     default=False,
-    help="Use custom CSS callouts based on color",
+    help="Create callout blocks (block quotes) of the highlights from a custom CSS file",
 )
-def local(file, book_name, since, output, export_type):
+def local(file, book_name, since, output, export_type, custom_css):
     highlights = find_highlights(file, book_name, dateparser.parse(since).date())
 
-    save_map[export_type](output, highlights)
+    save_map[export_type](output, highlights, custom_css)
 
 
 @cli.command(help="Store highlights to a Roam Graph")
