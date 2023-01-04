@@ -5,7 +5,7 @@ from enum import Enum
 from bs4 import BeautifulSoup
 from functional import seq
 
-from roam import roam_date
+from roam import roam_date, markdown_date
 
 
 class Color(Enum):
@@ -47,7 +47,7 @@ class Highlight:
 
     @property
     def enhanced_date_attribute(self):
-        return f"date:: {roam_date(self.date)}"
+        return f"date:: {markdown_date(self.date)}"
 
     def as_roam_block_hierarchy(self):
         return {

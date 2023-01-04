@@ -160,3 +160,7 @@ def strftime(date_format, date_to_format: date):
 
 def roam_date(date_to_format: date):
     return strftime("%B {S}, %Y", date_to_format)
+
+
+def markdown_date(date_to_format: date):
+    return date_to_format.strftime("%Y-%m-%d")
