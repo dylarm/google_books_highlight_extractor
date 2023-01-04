@@ -6,17 +6,17 @@
 }
 
 .callout[data-callout="red-highlight"] {
-    --callout-color: 0, 0, 0; /* #ffb881 */
+    --callout-color: 255, 184, 129; /* #ffb881 */
     --callout-icon: '<svg width="19.106472mm" height="14.35198mm" viewBox="0 0 19.106472 14.35198" version="1.1" id="svg5" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg"><defs id="defs2" /><g id="layer1" transform="translate(-95.374693,-141.1063)"><path style="fill:#ff7043;fill-opacity:1;stroke:none;stroke-width:0.06415;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" d="M 95.406693,155.42628 V 141.1383 h 19.085167 l -4.83376,4.71052 v 9.55404 l -14.251407,0.0234" id="path462" /></g></svg>';
 }
 
 .callout[data-callout="green-highlight"] {
-    --callout-color: 0, 0, 0; /* #c5e1a5 */
+    --callout-color: 197, 225, 165; /* #c5e1a5 */
     --callout-icon: '<svg width="19.106472mm" height="14.35198mm" viewBox="0 0 19.106472 14.35198" version="1.1" id="svg5" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg"><defs id="defs2" /><g id="layer1" transform="translate(-95.374693,-141.1063)"><path style="fill:#8bc34a;fill-opacity:1;stroke:none;stroke-width:0.06415;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" d="M 95.406693,155.42628 V 141.1383 h 19.085167 l -4.83376,4.71052 v 9.55404 l -14.251407,0.0234" id="path462" /></g></svg>';
 }
 
 .callout[data-callout="blue-highlight"] {
-    --callout-color: 0, 0, 0; /* #93e3ed */
+    --callout-color: 147, 226, 237; /* #93e3ed */
     --callout-icon: '<svg width="19.106472mm" height="14.35198mm" viewBox="0 0 19.106472 14.35198" version="1.1" id="svg5" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg"><defs id="defs2" /><g id="layer1" transform="translate(-95.374693,-141.1063)"><path style="fill:#26c6da;fill-opacity:1;stroke:none;stroke-width:0.06415;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" d="M 95.406693,155.42628 V 141.1383 h 19.085167 l -4.83376,4.71052 v 9.55404 l -14.251407,0.0234" id="path462" /></g></svg>';
 }
 
