@@ -17,6 +17,9 @@ This script is going to extract:
   - [x] Specify different blocks for different situations (highlight vs note)
   - [x] Custom call-out blocks (according to CSS?)
 - [x] Programmatically index the colors
+- [ ] Use downloaded zip file instead of having to extract it first
+  - This is going to require extensive reworking, since matching the images to colors is in `models.py` which is imported by `export_books.py` before any file has been specified
+  - And as-is, the `Color` class needs to stay in `models.py` because it's a part of the dataclass `Highlight`
 
 
 ### How to use this:
@@ -25,7 +28,7 @@ This script is going to extract:
 1. Download it as HTML;
 1. Uncompress the archive that you got on the previous step;
 1. Install dependencies if any are missing (see requirements.txt)
-1. Run parser.py with the HTML file you got after unpacking the archive as an input. E.g: 
+1. Run export_books.py with the HTML file you got after unpacking the archive as an input. E.g: 
     * Markdown `python export_books.py local /path/to/file.html -o output.md -b "Book name" --since yesterday`
     * Roam Graph `python export_books.py roam /path/to/file.html -b "Book name" --since yesterday --graph stvad-api --api-key <key> --graph-token <token>` 
 
