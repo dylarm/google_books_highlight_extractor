@@ -1,10 +1,10 @@
+import os
+from collections import defaultdict
 from dataclasses import dataclass
 from datetime import date
-from aenum import Enum, extend_enum
-import os
-from PIL import Image  # Pillow
-from collections import defaultdict
 
+from PIL import Image  # Pillow
+from aenum import Enum, extend_enum
 from bs4 import BeautifulSoup
 from functional import seq
 

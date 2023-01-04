@@ -1,5 +1,4 @@
 import csv
-import dateparser
 import functools
 import logging as log
 from datetime import datetime, date
@@ -7,6 +6,7 @@ from sys import stdout
 from typing import IO, Iterable
 
 import click
+import dateparser
 from bs4 import BeautifulSoup, Tag
 from functional import seq
 
