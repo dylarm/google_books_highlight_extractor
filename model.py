@@ -74,11 +74,11 @@ class Highlight:
 
     def as_enhanced_markdown(self, custom_css: bool = False):
         if custom_css:
-            first_line = f"[!{self.enhanced_color_attribute.split(' ')[1]}-highlight] {self.markdown_link}"
+            first_line = f"> [!{self.enhanced_color_attribute.split(' ')[1]}-highlight] {self.markdown_link}"
         elif self.note:
-            first_line = "[!note]"
+            first_line = "> [!note]"
         else:
-            first_line = "[!quote]"
+            first_line = "> [!quote]"
         return (
             seq(
                 first_line,
@@ -87,6 +87,7 @@ class Highlight:
                 f"> - {self.markdown_link}" if not custom_css else None,
                 f"> - {self.enhanced_date_attribute}",
                 f"> - {self.enhanced_color_attribute}" if not custom_css else None,
+                "",
             )
             .filter(lambda it: it is not None)
             .make_string("\n")
