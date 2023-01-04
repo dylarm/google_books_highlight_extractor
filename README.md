@@ -59,9 +59,9 @@ Options:
   -b, --book-name TEXT        Book name, would be appended to the source
                               reference  [required]
   --since TEXT                Starting point to take highlights from (supports
-                              natural language)
+                              natural language) [default: 1970-01-01]
   -o, --output FILENAME       Output file
-  -t, --export-type [md|csv]
+  -t, --export-type [md|csv|emd] Markdown, CSV, or "Extended" markdown
   --help                      Show this message and exit.
 
 ---

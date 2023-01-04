@@ -64,7 +64,13 @@ def common_params(func):
 @click.option(
     "-o", "--output", default=stdout, help="Output file", type=click.File(mode="w")
 )
-@click.option("-t", "--export-type", default="md", type=click.Choice(save_map.keys()))
+@click.option(
+    "-t",
+    "--export-type",
+    default="md",
+    help="Markdown, CSV, or 'Extended' Markdown",
+    type=click.Choice(save_map.keys()),
+)
 @click.option(
     "-c",
     "--custom-css",
