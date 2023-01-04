@@ -13,9 +13,10 @@ This script is going to extract:
 
 ### Immediate Improvement To-do's:
 - [x] Simplify regular Markdown output
-- [ ] Add ability to create "call-out blocks" for Markdown
-  - [ ] Specify different blocks for different situations (highlight vs note)
-  - [ ] Custom call-out blocks (according to CSS?)
+- [x] Add ability to create "call-out blocks" for Markdown
+  - [x] Specify different blocks for different situations (highlight vs note)
+  - [x] Custom call-out blocks (according to CSS?)
+- [x] Programmatically index the colors
 
 
 ### How to use this:

@@ -1,6 +1,9 @@
 from dataclasses import dataclass
 from datetime import date
-from enum import Enum
+from aenum import Enum, extend_enum
+import os
+from PIL import Image  # Pillow
+from collections import defaultdict
 
 from bs4 import BeautifulSoup
 from functional import seq
@@ -10,17 +13,57 @@ from roam import roam_date, markdown_date
 
 class Color(Enum):
     """
-    Probably most hacky part of this. Logic is that the colors are represented by images with the given index
+    Probably most hacky part of this. Logic is that the colors are represented by images with the given index.
 
-    TODO: Fix the color detection.
-    The issue is that these numbers are not constant. Whichever is 1 is the first color used for a highlight.
-    Sometimes the last number is the book cover, and sometimes it's not (as is the case for the test file I used).
+    The index is calculated by finding the dominant color in each image (assuming we're in the same directory as the
+    html file). And since Google Play Book notes use the same color each time, matching is fairly simple.
     """
 
-    BLUE = 4
-    RED = 5  # The book cover is 4
-    YELLOW = 1
-    GREEN = 2
+    pass
+
+
+class GoogleColors(Enum):
+    BLUE = (38, 198, 218)
+    RED = (255, 112, 67)
+    YELLOW = (251, 192, 45)
+    GREEN = (139, 195, 74)
+
+
+def color_distance(color):
+    distances = {}
+    for col in GoogleColors:
+        sqdiff = [pow(x[0] - x[1], 2) for x in zip(col.value, color)]
+        distances[col] = sum(sqdiff)
+    return distances
+
+
+def get_image_color(image: str) -> str:
+    im = Image.open(image).convert("RGB")
+    by_color = defaultdict(int)
+    for pixel in im.getdata():
+        by_color[pixel] += 1
+    most_common = max(by_color, key=by_color.get)
+    distances = color_distance(most_common)
+    for name in distances:
+        if distances[name] == 0:
+            name = name.name  # Sorry
+            break
+        else:
+            name = None
+    return name
+
+
+def extend_color_class():
+    imdir = f"{os.getcwd()}/images"
+    images = os.listdir(imdir)
+    for image in images:
+        image_num = image.split(".")[0][-1]
+        image_color = get_image_color(f"{imdir}/{image}")
+        if image_color:
+            extend_enum(Color, image_color, image_num)
+
+
+extend_color_class()  # Make sure to actually extend the class
 
 
 @dataclass

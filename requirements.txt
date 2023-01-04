@@ -4,3 +4,5 @@ click
 requests
 dacite
 dateparser
+Pillow
+aenum
