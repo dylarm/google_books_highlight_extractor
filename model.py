@@ -37,8 +37,16 @@ class Highlight:
         return f'color::#{self.color.name.lower()}'
 
     @property
+    def enhanced_color_attribute(self):
+        return f'color:: {self.color.name.lower()}'
+
+    @property
     def date_attribute(self):
         return f'date::[[{roam_date(self.date)}]]'
+
+    @property
+    def enhanced_date_attribute(self):
+        return f'date:: {roam_date(self.date)}'
 
     def as_roam_block_hierarchy(self):
         return {
@@ -56,6 +64,16 @@ class Highlight:
             f'   - {self.markdown_link}',
             f'   - {self.date_attribute}',
             f'   - {self.color_attribute}'
+        ).filter(lambda it: it is not None).make_string('\n')
+
+    def as_enhanced_markdown(self):
+        return seq(
+            f'> [!quote]',
+            f'> text:: {self.text}',
+            f'> - {self.note}' if self.note else None,
+            f'> - {self.markdown_link}',
+            f'> - {self.enhanced_date_attribute}',
+            f'> - {self.enhanced_color_attribute}'
         ).filter(lambda it: it is not None).make_string('\n')
 
     def as_anki_csv_row(self):

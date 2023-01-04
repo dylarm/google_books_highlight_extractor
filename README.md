@@ -12,7 +12,7 @@ This script is going to extract:
 * Highlight color
 
 ### Immediate Improvement To-do's:
-- [ ] Simplify regular Markdown output
+- [x] Simplify regular Markdown output
 - [ ] Add ability to create "call-out blocks" for Markdown
   - [ ] Specify different blocks for different situations (highlight vs note)
   - [ ] Custom call-out blocks (according to CSS?)
