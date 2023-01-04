@@ -11,12 +11,16 @@ from roam import roam_date, markdown_date
 class Color(Enum):
     """
     Probably most hacky part of this. Logic is that the colors are represented by images with the given index
+
+    TODO: Fix the color detection.
+    The issue is that these numbers are not constant. Whichever is 1 is the first color used for a highlight.
+    Sometimes the last number is the book cover, and sometimes it's not (as is the case for the test file I used).
     """
 
-    BLUE = 1
-    RED = 2
-    YELLOW = 3
-    GREEN = 4
+    BLUE = 4
+    RED = 5  # The book cover is 4
+    YELLOW = 1
+    GREEN = 2
 
 
 @dataclass

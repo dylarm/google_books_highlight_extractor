@@ -16,7 +16,7 @@ from roam import Roam, RoamError, Page, Block
 log.basicConfig(level=log.INFO)
 
 
-def save_md(file: IO, highlights: seq):
+def save_md(file: IO, highlights: seq, custom_css: bool):
     file.write(highlights.map(lambda it: it.as_roam_markdown()).make_string("\n"))
 
 
