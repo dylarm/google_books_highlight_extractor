@@ -1,8 +1,9 @@
+from __future__ import annotations
+
 from collections import defaultdict
 from dataclasses import dataclass
 from datetime import date
 from pathlib import Path
-from typing import Union
 from zipfile import ZipFile
 
 from PIL import Image  # Pillow
@@ -18,7 +19,8 @@ class Color(Enum):
     Probably most hacky part of this. Logic is that the colors are represented by images with the given index.
 
     The index is calculated by finding the dominant color in each image (assuming we're in the same directory as the
-    html file). And since Google Play Book notes use the same color each time, matching is fairly simple.
+    html file, or are using a zip file). And since Google Play Book notes use the same color each time, matching is
+    fairly simple.
     """
 
     pass
@@ -33,7 +35,7 @@ class GoogleColors(Enum):
 
 def color_distance(color):
     distances = {}
-    for col in GoogleColors:
+    for col in GoogleColors:  # noinspection
         sqdiff = [pow(x[0] - x[1], 2) for x in zip(col.value, color)]
         distances[col] = sum(sqdiff)
     return distances
@@ -52,10 +54,10 @@ def get_image_color(image) -> str:
             break
         else:
             name = None
-    return name
+    return name  # noinspection
 
 
-def extend_color_class(file: Union[ZipFile, Path]):
+def extend_color_class(file: ZipFile | Path):
     # TODO: there is almost surely a better way to do this. But this works for now (famous last words)
     if isinstance(file, Path):
         image_dir = Path(f"{file.parent}/images/")

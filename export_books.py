@@ -55,6 +55,8 @@ def common_params(func):
     @click.option(
         "--since",
         default="1970-01-01",
+        required=False,
+        show_default=True,
         help="Starting point to take highlights from (supports natural language)",
     )
     @functools.wraps(func)
@@ -67,14 +69,19 @@ def common_params(func):
 @cli.command(help="Output results locally")
 @common_params
 @click.option(
-    "-o", "--output", default=stdout, help="Output file", type=click.File(mode="w")
+    "-o",
+    "--output",
+    default=stdout,
+    help="Output file [default: stdout]",
+    type=click.File(mode="w"),
 )
 @click.option(
     "-t",
     "--export-type",
     default="md",
     help="Markdown, CSV, or 'Extended' Markdown",
-    type=click.Choice(save_map.keys()),
+    show_default=True,
+    type=click.Choice(save_map.keys()),  # noinspection
 )
 @click.option(
     "-c",
@@ -160,7 +167,7 @@ def find_highlights(file: Path, book_name: str, since: date = date.min):
             soup = BeautifulSoup(html_file.read(), "html.parser")
     else:
         soup = BeautifulSoup(file.read_text(), "html.parser")
-    containers = soup.find_all(rowspan=1, colspan=1)
+    containers = soup.find_all(rowspan=1, colspan=1)  # noinspection
     extend_color_class(file)
     return (
         seq(containers)
@@ -175,7 +182,9 @@ def find_highlights(file: Path, book_name: str, since: date = date.min):
 def parse_color(color_container: Tag) -> Color:
     color_tag: Tag = color_container.find("img")
 
-    name_color_map = {f"images/image{color.value}.png": color for color in Color}
+    name_color_map = {
+        f"images/image{color.value}.png": color for color in Color
+    }  # noinspection
 
     return name_color_map[color_tag["src"]]
 
