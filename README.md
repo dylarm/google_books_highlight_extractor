@@ -1,5 +1,6 @@
 # Google Books highlights and notes extractor
 <a href="https://github.com/psf/black"><img alt="Code style: black" src="https://img.shields.io/badge/code%20style-black-000000.svg"></a>
+![python 3.7, 3.9, 3.10, 3.11](https://img.shields.io/badge/python-v3.7%7Cv3.9%7Cv3.10%7Cv3.11-blue)
 
 A script to extract highlights and notes from Google Books highlight document in Google Drive.
 
