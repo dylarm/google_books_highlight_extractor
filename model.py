@@ -1,7 +1,9 @@
-import os
 from collections import defaultdict
 from dataclasses import dataclass
 from datetime import date
+from pathlib import Path
+from typing import Union
+from zipfile import ZipFile
 
 from PIL import Image  # Pillow
 from aenum import Enum, extend_enum
@@ -37,7 +39,7 @@ def color_distance(color):
     return distances
 
 
-def get_image_color(image: str) -> str:
+def get_image_color(image) -> str:
     im = Image.open(image).convert("RGB")
     by_color = defaultdict(int)
     for pixel in im.getdata():
@@ -53,17 +55,24 @@ def get_image_color(image: str) -> str:
     return name
 
 
-def extend_color_class():
-    imdir = f"{os.getcwd()}/images"
-    images = os.listdir(imdir)
-    for image in images:
-        image_num = image.split(".")[0][-1]
-        image_color = get_image_color(f"{imdir}/{image}")
-        if image_color:
-            extend_enum(Color, image_color, image_num)
-
-
-extend_color_class()  # Make sure to actually extend the class
+def extend_color_class(file: Union[ZipFile, Path]):
+    # TODO: there is almost surely a better way to do this. But this works for now (famous last words)
+    if isinstance(file, Path):
+        image_dir = Path(f"{file.parent}/images/")
+        image_names = image_dir.glob("*.png")
+        for image in image_names:
+            image_num = image.stem[-1]
+            image_color = get_image_color(image)
+            if image_color:
+                extend_enum(Color, image_color, image_num)
+    else:
+        image_names = [name for name in file.namelist() if ".png" in name]
+        for image in image_names:
+            image_num = image.split(".")[0][-1]
+            with file.open(image) as im:
+                image_color = get_image_color(im)
+            if image_color:
+                extend_enum(Color, image_color, image_num)
 
 
 @dataclass

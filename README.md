@@ -17,9 +17,10 @@ This script is going to extract:
   - [x] Specify different blocks for different situations (highlight vs note)
   - [x] Custom call-out blocks (according to CSS?)
 - [x] Programmatically index the colors
-- [ ] Use downloaded zip file instead of having to extract it first
+- [x] Use downloaded zip file instead of having to extract it first
   - This is going to require extensive reworking, since matching the images to colors is in `models.py` which is imported by `export_books.py` before any file has been specified
   - And as-is, the `Color` class needs to stay in `models.py` because it's a part of the dataclass `Highlight`
+  - **Note:** If you want to use tab completion for the input file, you have to put the file name after "--" like `COMMAND -- FILE`
 
 
 ### How to use this:

@@ -2,21 +2,23 @@ import csv
 import functools
 import logging as log
 from datetime import datetime, date
+from pathlib import Path
 from sys import stdout
 from typing import IO, Iterable
+from zipfile import ZipFile
 
 import click
 import dateparser
 from bs4 import BeautifulSoup, Tag
 from functional import seq
 
-from model import Highlight, Color
+from model import Highlight, Color, extend_color_class
 from roam import Roam, RoamError, Page, Block
 
 log.basicConfig(level=log.INFO)
 
 
-def save_md(file: IO, highlights: seq, custom_css: bool):
+def save_md(file: IO, highlights: seq, *args):
     file.write(highlights.map(lambda it: it.as_roam_markdown()).make_string("\n"))
 
 
@@ -26,7 +28,7 @@ def save_emd(file: IO, highlights: seq, custom_css: bool):
     )
 
 
-def save_csv(file, highlights: seq):
+def save_csv(file, highlights: seq, *args):
     writer = csv.writer(file)
     writer.writerows(highlights.map(lambda it: it.as_anki_csv_row()))
 
@@ -40,7 +42,10 @@ def cli():
 
 
 def common_params(func):
-    @click.argument("file", type=click.File())
+    @click.argument(
+        "file",
+        type=click.Path(exists=True, dir_okay=False, resolve_path=True, path_type=Path),
+    )
     @click.option(
         "-b",
         "--book-name",
@@ -142,14 +147,21 @@ class RoamSaver:
         return self.roam.create_block(page.uid, {self.header_block_name: []})[0]
 
 
-def find_highlights(file, book_name: str, since: date = date.min):
+def find_highlights(file: Path, book_name: str, since: date = date.min):
     """
     The extraction is based on the structure of the HTML file the export from Google Docs would give you for the
     document containing the notes. 1 cell table container, inside of which there is another table that contains cells
     for Image, Highlight, Note and Date.
     """
-    soup = BeautifulSoup(file.read(), "html.parser")
+    if ".zip" in file.name:
+        file = ZipFile(file.name)
+        html_name = [name for name in file.namelist() if ".html" in name][0]
+        with file.open(html_name) as html_file:
+            soup = BeautifulSoup(html_file.read(), "html.parser")
+    else:
+        soup = BeautifulSoup(file.read_text(), "html.parser")
     containers = soup.find_all(rowspan=1, colspan=1)
+    extend_color_class(file)
     return (
         seq(containers)
         .map(lambda tag: tag.find_all(rowspan=1, colspan=1))
